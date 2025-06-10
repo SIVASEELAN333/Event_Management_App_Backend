@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8
+    container_name: mysql-container
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 12345siva@2005A
+      MYSQL_DATABASE: event_db
+      MYSQL_USER: eventuser
+      MYSQL_PASSWORD: eventpass
+    ports:
+      - "3306:3306"
+    networks:
+      - backend
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-ueventuser", "-peventpass"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  springboot:
+    build: .
+    container_name: springboot-container
+    restart: always
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/event_db
+      SPRING_DATASOURCE_USERNAME: eventuser
+      SPRING_DATASOURCE_PASSWORD: eventpass
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+
+
+
+      EMAIL_USERNAME: eventmanager2736@gmail.com
+      EMAIL_PASSWORD: cnrx ltdb tytn lona
+
+      SERVER_PORT: 8080
+    ports:
+      - "8080:8080"
+    networks:
+      - backend
+
+networks:
+  backend:
