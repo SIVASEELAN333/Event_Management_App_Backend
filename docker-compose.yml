@@ -32,10 +32,8 @@ services:
       SPRING_DATASOURCE_USERNAME: eventuser
       SPRING_DATASOURCE_PASSWORD: eventpass
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
-
       EMAIL_USERNAME: eventmanager2736@gmail.com
       EMAIL_PASSWORD: cnrx ltdb tytn lona
-
       SERVER_PORT: 8080
     ports:
       - "8080:8080"
