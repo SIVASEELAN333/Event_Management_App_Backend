@@ -15,7 +15,7 @@ services:
     networks:
       - backend
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-ueventuser", "-peventpass"]
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-p12345siva@2005A"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -27,14 +27,11 @@ services:
     depends_on:
       mysql:
         condition: service_healthy
-
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/event_db
       SPRING_DATASOURCE_USERNAME: eventuser
       SPRING_DATASOURCE_PASSWORD: eventpass
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
-
-
 
       EMAIL_USERNAME: eventmanager2736@gmail.com
       EMAIL_PASSWORD: cnrx ltdb tytn lona
