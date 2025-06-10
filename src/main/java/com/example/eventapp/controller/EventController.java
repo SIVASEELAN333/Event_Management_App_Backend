@@ -3,6 +3,7 @@ package com.example.eventapp.controller;
 import com.example.eventapp.model.EventDocument;
 import com.example.eventapp.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,6 +26,17 @@ public class EventController {
     public EventDocument createEvent(@RequestBody EventDocument event) {
         return eventService.createEvent(event);
     }
+    @PutMapping("/{id}")
+    public ResponseEntity<EventDocument> updateEvent(@PathVariable String id, @RequestBody EventDocument updatedEvent) {
+        EventDocument event = eventService.updateEvent(id, updatedEvent);
+        if (event != null) {
+            return ResponseEntity.ok(event);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
+
+
 
     @PostMapping("/{id}/participants")
     public ResponseEntity<?> addParticipant(@PathVariable String id, @RequestBody String participantId) {
@@ -33,26 +45,6 @@ public class EventController {
             return ResponseEntity.ok(updatedEvent);
         } catch (RuntimeException e) {
             return ResponseEntity.status(403).body(e.getMessage()); // Forbidden
-        }
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteEvent(@PathVariable String id) {
-        boolean deleted = eventService.deleteEvent(id);
-        if (deleted) {
-            return ResponseEntity.ok("Event deleted successfully");
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<?> updateEvent(@PathVariable String id, @RequestBody EventDocument updatedEvent) {
-        EventDocument event = eventService.updateEvent(id, updatedEvent);
-        if (event != null) {
-            return ResponseEntity.ok(event);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+}
     }
 }
