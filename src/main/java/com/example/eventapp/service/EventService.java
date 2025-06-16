@@ -35,10 +35,22 @@ public class EventService {
             existingEvent.setVenue(updatedEvent.getVenue());
             existingEvent.setOrganizer(updatedEvent.getOrganizer());
             existingEvent.setImageUrl(updatedEvent.getImageUrl());
+            existingEvent.setCapacity(updatedEvent.getCapacity());
             existingEvent.setParticipants(updatedEvent.getParticipants());
             existingEvent.setAllowedParticipants(updatedEvent.getAllowedParticipants());
             return eventRepository.save(existingEvent);
         }).orElse(null);
+    }
+
+
+    public boolean deleteEvent(String id) {
+        Optional<EventDocument> existingEvent = eventRepository.findById(id);
+        if (existingEvent.isPresent()) {
+            eventRepository.deleteById(id);
+            return true;
+        } else {
+            return false;
+        }
     }
 
 
@@ -61,4 +73,5 @@ public class EventService {
 
         return event;
 }
+
 }

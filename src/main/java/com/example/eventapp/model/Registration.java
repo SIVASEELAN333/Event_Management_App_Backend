@@ -10,12 +10,18 @@ public class Registration {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long userId;    // FK to User.id
-    private String eventId; // FK to EventDocument.id (MongoDB)
+    private Long userId;
+    private String eventId;
 
     private String timestamp;
+    private String userEmail;
+    private boolean waitingList;
 
-    // Getters and setters
+    @ManyToOne
+    @JoinColumn(name = "userId", insertable = false, updatable = false)
+    private User user;
+
+    // ✅ Getters and Setters
 
     public Long getId() {
         return id;
@@ -43,5 +49,23 @@ public class Registration {
     }
     public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
-}
+    }
+
+    public String getUserEmail() {
+        return userEmail;
+    }
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
+    }
+
+    public boolean isWaitingList() {
+        return waitingList;
+    }
+    public void setWaitingList(boolean waitingList) {
+        this.waitingList = waitingList;
+    }
+
+    public User getUser() {
+        return user;
+    }
 }

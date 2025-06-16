@@ -2,6 +2,8 @@ package com.example.eventapp.model;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import com.example.eventapp.model.WinnerDTO;
+
 
 import java.util.List;
 
@@ -18,6 +20,10 @@ public class EventDocument {
     private String venue;
     private String organizer;
     private String imageUrl;
+    private Integer capacity;
+
+    private WinnerDTO winner;
+
 
     private List<String> participants;         // userIds (as string)
     private List<String> allowedParticipants;  // userIds allowed to register (optional)
@@ -26,7 +32,7 @@ public class EventDocument {
     public EventDocument() {}
 
     public EventDocument(String title, String description, String date, String time, String venue,
-                         String organizer, String imageUrl, List<String> participants,
+                         String organizer, String imageUrl,Integer capacity, List<String> participants,
                          List<String> allowedParticipants) {
         this.title = title;
         this.description = description;
@@ -35,11 +41,19 @@ public class EventDocument {
         this.venue = venue;
         this.organizer = organizer;
         this.imageUrl = imageUrl;
+        this.capacity=capacity;
         this.participants = participants;
         this.allowedParticipants = allowedParticipants;
     }
 
     // Getters and Setters
+    public WinnerDTO getWinner() {
+        return winner;
+    }
+    public void setWinner(WinnerDTO winner) {
+        this.winner = winner;
+    }
+
 
     public String getId() {
         return id;
@@ -96,6 +110,13 @@ public class EventDocument {
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
+    public Integer getCapacity() {
+        return capacity;
+    }
+    public void setCapacity(Integer capacity) {
+        this.capacity = capacity;
+    }
+
 
     public List<String> getParticipants() {
         return participants;

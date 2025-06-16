@@ -6,14 +6,17 @@ public class RegistrationResponse {
     private String eventId;
     private String timestamp;
     private Long registrationId;
+    private boolean waitingList;
 
-    public RegistrationResponse(String message, Long userId, String eventId, String timestamp, Long registrationId) {
+    public RegistrationResponse(String message, Long userId, String eventId, String timestamp, Long registrationId, boolean waitingList) {
         this.message = message;
         this.userId = userId;
         this.eventId = eventId;
         this.timestamp = timestamp;
         this.registrationId = registrationId;
+        this.waitingList = waitingList;
     }
+
 
     // Getters and setters
     public String getMessage() { return message; }
